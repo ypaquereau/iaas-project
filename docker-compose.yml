@@ -1,0 +1,30 @@
+version: '3'
+services:
+  server:
+    image: node:14
+    container_name: server
+    volumes:
+      - ./server:/src/app
+    links:
+      - db:db
+    command: bash -c "npm install -g nodemon && cd /src/app && nodemon server"
+
+  client:
+    image: node:14
+    container_name: client
+    volumes:
+      - ./client:/src/app
+    ports:
+      - 8080:8080
+    links:
+      - server:server
+    command: bash -c "cd /src/app && npm run serve"
+
+  db:
+    image: mongo
+    container_name: db
+    volumes:
+      - ./db:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
