@@ -1,7 +1,7 @@
 version: '3'
 services:
   server:
-    image: node:14
+    image: mevn-server
     container_name: server
     volumes:
       - ./server:/src/app
@@ -9,18 +9,14 @@ services:
       - db:db
     ports:
       - 3000:3000
-    command: bash -c "npm install -g nodemon && cd /src/app && npm install && nodemon server"
 
   client:
-    image: node:14
+    image: mevn-client
     container_name: client
     volumes:
       - ./client:/src/app
     ports:
       - 8080:8080
-    links:
-      - server:server
-    command: bash -c "cd /src/app && npm install && npm run serve"
 
   db:
     image: mongo
