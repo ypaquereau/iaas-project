@@ -1,11 +1,9 @@
 <template>
   <div class="middle-screen">
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-      <b-form-group
-        label="Email address:"
-      >
+    <b-form @submit.prevent="loginUser" @reset="onReset" v-if="show">
+      <b-form-group label="Email address:">
         <b-form-input
-          v-model="form.email"
+          v-model="login.email"
           type="email"
           placeholder="Enter email"
           required
@@ -14,7 +12,7 @@
 
       <b-form-group label="Your password:">
         <b-form-input
-          v-model="form.password"
+          v-model="login.password"
           placeholder="Enter password"
           required
         ></b-form-input>
@@ -29,37 +27,46 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        form: {
-          email: '',
-          password: '',
-        },
-        show: true
+export default {
+  data() {
+    return {
+      login: {
+        email: "",
+        password: "",
+      },
+      show: true,
+    };
+  },
+  methods: {
+    async loginUser() {
+      try {
+        let response = await this.$http.post("/user/login", this.login);
+        let token = response.data.token;
+        localStorage.setItem("jwt", token);
+        if (token) {
+          this.$router.push("/home");
+        }
+      } catch (err) {
+        console.log(err.response);
       }
     },
-    methods: {
-      onSubmit(event) {
-        event.preventDefault()
-      },
-      onReset(event) {
-        event.preventDefault()
-        // Reset our form values
-        this.form.email = ''
-        this.form.password= ''
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-      }
-    }
-  }
+    onReset(event) {
+      event.preventDefault();
+      // Reset our form values
+      this.form.email = "";
+      this.form.password = "";
+      // Trick to reset/clear native browser form validation state
+      this.show = false;
+    },
+  },
+};
 </script>
 
 <style>
-  .middle-screen {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: calc(100vh - 7vh);
-  }
+.middle-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 7vh);
+}
 </style>
