@@ -1,24 +1,24 @@
 version: '3'
 services:
   server:
-    image: node:14
+    image: mevn-server
     container_name: server
     volumes:
       - ./server:/src/app
     links:
       - db:db
-    command: bash -c "npm install -g nodemon && cd /src/app && nodemon server"
+    ports:
+      - 3000:3000
+    environment:
+      - API_URL="http://localhost:3000"
 
   client:
-    image: node:14
+    image: mevn-client
     container_name: client
     volumes:
       - ./client:/src/app
     ports:
       - 8080:8080
-    links:
-      - server:server
-    command: bash -c "cd /src/app && npm run serve"
 
   db:
     image: mongo
