@@ -3,8 +3,10 @@ FROM node:latest
 RUN mkdir -p /src/app
 WORKDIR /src/app
 
+COPY package.json /src/app
+RUN npm install
+
 COPY . /src/app
-RUN cd /src/app && npm install
 RUN npm install -g nodemon
 
 EXPOSE 3000

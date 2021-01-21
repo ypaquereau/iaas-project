@@ -1,24 +1,20 @@
 version: '3'
 services:
   server:
-    image: mevn-server
+    image: yoannpaquereau/mevn-server
     container_name: server
-    volumes:
-      - ./server:/src/app
     links:
-      - db:db
+      - db
     ports:
       - 3000:3000    
 
   client:
-    image: mevn-client
+    image: yoannpaquereau/mevn-client
     container_name: client
-    volumes:
-      - ./client:/src/app
     ports:
       - 8080:8080
     environment:
-      - VUE_APP_API_URL=http://localhost:3000
+      - VUE_APP_API_URL=http://34.90.153.190:3000
 
   db:
     image: mongo
@@ -28,3 +24,5 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
+    ports:
+      - 27017:27017
