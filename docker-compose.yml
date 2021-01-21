@@ -24,7 +24,7 @@ services:
     image: mongo
     container_name: db
     volumes:
-      - ./db:/data/db
+      - ./db_data:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
