@@ -9,7 +9,7 @@ services:
       - db:db
     ports:
       - 3000:3000
-    command: bash -c "npm install -g nodemon && cd /src/app && nodemon server"
+    command: bash -c "npm install -g nodemon && cd /src/app && npm install && nodemon server"
 
   client:
     image: node:14
@@ -20,7 +20,7 @@ services:
       - 8080:8080
     links:
       - server:server
-    command: bash -c "cd /src/app && npm run serve"
+    command: bash -c "cd /src/app && npm install && npm run serve"
 
   db:
     image: mongo
