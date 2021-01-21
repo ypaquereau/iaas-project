@@ -7,6 +7,8 @@ services:
       - ./server:/src/app
     links:
       - db:db
+    ports:
+      - 3000:3000
     command: bash -c "npm install -g nodemon && cd /src/app && nodemon server"
 
   client:
