@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import axios from 'axios'
 import VueRouter from 'vue-router';
+require('dotenv').config();
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
@@ -12,7 +13,7 @@ Vue.use(BootstrapVue);
 Vue.config.productionTip = false;
 
 const base = axios.create({
-    baseURL: "http://localhost:3000"
+    baseURL: process.env.VUE_APP_API_URL
 });
 Vue.prototype.$http = base;
 

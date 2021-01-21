@@ -9,6 +9,8 @@ services:
       - db:db
     ports:
       - 3000:3000
+    environment:
+      - API_URL="http://localhost:3000"
 
   client:
     image: mevn-client
