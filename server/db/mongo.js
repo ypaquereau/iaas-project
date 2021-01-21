@@ -3,7 +3,8 @@ require('dotenv').config();
 
 const clientOptions = {
   useNewUrlParser: true,
-  dbName: "apinode",
+  useUnifiedTopology: true,
+  dbName: "data",
 };
 
 exports.initClientDbConnection = async () => {
